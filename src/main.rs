@@ -16,9 +16,11 @@ struct Clicker {
     // Application State
     text: String,
 }
+
 impl Sandbox for Clicker {
     type Message = u8;
 
+    // Here is where you should return the initial state of your app.
     fn new() -> Self {
         println!("App created");
         Self {
@@ -28,7 +30,7 @@ impl Sandbox for Clicker {
 
     fn title(&self) -> String {
         println!("Title set");
-        "Clicker on the rocks".to_string()
+        "Clicker on the Rocks".to_string()
     }
 
     // Application View
@@ -36,19 +38,22 @@ impl Sandbox for Clicker {
     // - what's there? buttons, text fields, etc...
     fn view(&self) -> iced::Element<'_, Self::Message> {
         let text_widget = widget::text(&self.text);
-        let button_widget = widget::button("Say \"hi\" back").on_press(13);
+        let button_widget = widget::button("Say \"Hi\" back").on_press(13);
 
         println!("View rendered");
-        widget::row![text_widget, button_widget].into()
+        // widget::row![text_widget, button_widget].into();
 
         // You can find other widgets here: https://docs.rs/iced/latest/iced/widget/index.html
         // Feel free to experiment. Just pay attention that you don't know how to send a Message
         // that contains addition data, like integers, &strs etc... We'll get to that next time.
 
         // Keep experimenting! ^-^
-        // let row1 = widget::row![widget::container(button_widget).padding(3)];
+        let row1 = widget::row![widget::container(button_widget).padding(5)];
         // let row2 = widget::row![widget::text("Alicja ma małego siusiaka")];
-        // widget::column![row1, row2, text_widget].into()
+
+        // let radio: widget::Radio<Self::Message> = widget::radio("dupa", 32, Some(12), |x| 3);
+
+        widget::column![row1, text_widget].into()
     }
 
     // Application Update
@@ -65,7 +70,7 @@ impl Sandbox for Clicker {
 
     fn theme(&self) -> iced::Theme {
         println!("Theme set");
-        iced::Theme::SolarizedDark
+        iced::Theme::TokyoNightStorm
     }
 }
 
